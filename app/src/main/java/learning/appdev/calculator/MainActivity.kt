@@ -29,20 +29,22 @@ class MainActivity : AppCompatActivity() {
         return value;
 
     }
+    
+    // function for displaying digits, which are taken as input.
     fun onDigit(view: View){
         // when u cant import textView:
         val tvInput = findViewById<View>(R.id.tvInput) as TextView
         tvInput.append((view as Button).text)
         lastNumeric=true
     }
-
+    // function for CLR operator
     fun onClear(view: View){
         val tvInput = findViewById<View>(R.id.tvInput) as TextView
         tvInput.setText("")
         lastNumeric=false
         lastDecimal=false
     }
-
+    // function for showing decimal point
     fun onDecimal(view: View){
         val tvInput = findViewById<View>(R.id.tvInput) as TextView
         if (lastNumeric && !lastDecimal){
@@ -52,6 +54,8 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+    
+    // function for calculation after the equal sign is tapped.
     fun onEqual(view: View){
         val tvInput = findViewById<View>(R.id.tvInput) as TextView
         if(lastNumeric){
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     prefix = "-"
                     tvValue = tvValue.substring(1)
                 }
-                // for - operation
+                // for subtract operation
                 if (tvValue.contains("-")){
                     // splitting the values before and after the operation.
                         // 99+1, 99, 1
@@ -77,6 +81,8 @@ class MainActivity : AppCompatActivity() {
 
                     tvInput.text = removeZeroAfterDec((one.toDouble() - two.toDouble()).toString())
                 }
+                
+                // for devide operation
                 else if (tvValue.contains("/")){
 
                     var splitValue = tvValue.split("/")
@@ -89,6 +95,8 @@ class MainActivity : AppCompatActivity() {
 
                     tvInput.text = removeZeroAfterDec((one.toDouble() / two.toDouble()).toString())
                 }
+                
+                // for multiplication operation
                 else if (tvValue.contains("*")){
 
                     var splitValue = tvValue.split("*")
@@ -101,6 +109,8 @@ class MainActivity : AppCompatActivity() {
 
                     tvInput.text = removeZeroAfterDec((one.toDouble() * two.toDouble()).toString())
                 }
+                
+                // for addition operation
                 else if (tvValue.contains("+")){
 
                     var splitValue = tvValue.split("+")
@@ -128,6 +138,8 @@ class MainActivity : AppCompatActivity() {
             lastDecimal=false
         }
     }
+    
+    
 
     private fun isOperatorAdded(value: String):Boolean{
         return if (value.startsWith("-")){
